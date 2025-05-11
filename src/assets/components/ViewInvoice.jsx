@@ -10,12 +10,19 @@ export default function ViewInvoice() {
   function handleDialog() {
     dialogRef.current.showModal();
   }
+  const grandTotal = () => {
+    let grandTotal = 0;
+    currentInvoice.items?.map(item => {
+      grandTotal =+ Number(item.itemTotal)
+    });
+    return grandTotal;
+  }
   function handleDelete(id) {
     setData(data.filter(x => x.id !== id));
     window.location.hash = "#/";
   }
   function handlePaid() {
-    setCurrentInvoice({...currentInvoice, status: "Paid"});
+    setCurrentInvoice({ ...currentInvoice, status: "Paid" });
   }
   return (
     <>
@@ -26,7 +33,7 @@ export default function ViewInvoice() {
         </div>
         <div className="status">
           <h5>Status</h5>
-          <span className={currentInvoice.status === "Pending" ? "pending" : currentInvoice.status === "Paid"  ? "paid" :"draft"}>{currentInvoice.status}</span>
+          <span className={currentInvoice.status === "Pending" ? "pending" : currentInvoice.status === "Paid" ? "paid" : "draft"}>{currentInvoice.status}</span>
         </div>
         <div className="payment-area">
           <div className="payment-desc">
@@ -62,34 +69,27 @@ export default function ViewInvoice() {
             </div>
           </div>
           <div className="payment">
-            {Object.keys(currentInvoice)
-              .filter(key => key.startsWith("itemName"))
-              .map(key => {
-                const index = key.replace("itemName", "");
-                const name = currentInvoice[`itemName${index}`];
-                const qty = currentInvoice[`itemQty${index}`];
-                const price = currentInvoice[`itemPrice${index}`];
-                const total = currentInvoice[`itemTotal${index}`];
-
-                return (
-                  <div className="pay-group" key={index}>
-                    <div>
-                      <h3>{name}</h3>
-                      <span>{qty} x £ {price}</span>
-                    </div>
-                    <h6>£ {parseFloat(total).toFixed(2)}</h6>
-                  </div>
-                );
-              })
+            {currentInvoice.items.map(x =>
+            (
+              <div className="pay-group" key={x.id}>
+                <div>
+                  <h3>{x.itemName}</h3>
+                  <span>{x.itemQty} x £ {x.itemPrice}</span>
+                </div>
+                <h6>£ {x.itemTotal}</h6>
+              </div>
+            )
+            )
             }
           </div>
           <div className="grand-total">
             <h3>Grand Total</h3>
-            <h2>£ {
-              Object.keys(currentInvoice)
-                .filter(key => key.startsWith('itemTotal'))
-                .reduce((acc, key) => acc + parseFloat(currentInvoice[key] || 0), 0)
-                .toFixed(2)
+            <h2>£ {grandTotal()
+
+              // Object.keys(currentInvoice.items.itemtotal)
+              //   .filter(key => key.startsWith('itemTotal'))
+              //   .reduce((acc, key) => acc + parseFloat(currentInvoice[key] || 0), 0)
+              //   .toFixed(2)
             }</h2>
           </div>
         </div>

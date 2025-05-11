@@ -23,13 +23,15 @@ export default function CreateInvoice() {
 
   const handleItemChange = (index, field, value) => {
     const updatedItems = [...inputList];
-    updatedItems[index][field] = value;
+    const item = updatedItems[index];
+    item[field] = value;
+    item["itemTotal"] = (item.itemQty * item.itemPrice).toFixed(2)
     setInputList(updatedItems);
   };
 
   function addNewInput(e) {
     e.preventDefault()
-    setInputList([...inputList, { itemName: '', itemQty: '', itemPrice: '' }]);
+    setInputList([...inputList, { itemName: '', itemQty: '', itemPrice: '', itemTotal: '' }]);
 
   }
   function handleSubmit(e) {
@@ -38,13 +40,21 @@ export default function CreateInvoice() {
     const formObj = Object.fromEntries(formData);
     formObj.invoiceDate = formatDate(formObj.invoiceDate);
     formObj.status = status;
-    const newInvoice = {
+    // const newInvoice = {
+    //   id: generateSecureRandomId(),
+    //  }
+    const itemData = inputList.map((item, index) => {
+     return {id: index + 1, ...item}
+    }
+  )
+    const myData = {
       id: generateSecureRandomId(),
-      
-     }
-    console.log(formObj);
-    const myData = {...formObj, ...newInvoice};
+      ...formObj,
+      items: [...itemData]
+    };
+    console.log(myData);
     setData([...data, myData]);
+    console.log(data);
     //  window.history.back() 
   }
   function handleDeleteItem(index) {
@@ -135,7 +145,6 @@ export default function CreateInvoice() {
                 <span>Item Name</span>
                 <input
                   type="text"
-                  name={`itemName${index + 1}`}
                   value={item.itemName}
                   onChange={(e) => handleItemChange(index, 'itemName', e.target.value)}
                   placeholder="Banner Design"
@@ -146,7 +155,6 @@ export default function CreateInvoice() {
                   <span>Qty.</span>
                   <input
                     type="text"
-                    name={`itemQty${index + 1}`}
                     value={item.itemQty}
                     onChange={(e) => handleItemChange(index, 'itemQty', e.target.value)}
                     placeholder="1"
@@ -156,7 +164,6 @@ export default function CreateInvoice() {
                   <span>Price</span>
                   <input
                     type="text"
-                    name={`itemPrice${index + 1}`}
                     value={item.itemPrice}
                     onChange={(e) => handleItemChange(index, 'itemPrice', e.target.value)}
                     placeholder="0.00"
@@ -165,9 +172,8 @@ export default function CreateInvoice() {
                 <div className="total">
                   <span>Total</span>
                   <input 
-                    type='text' 
-                    value={(item.itemQty * item.itemPrice).toFixed(2)}
-                    name={`itemTotal${index + 1}`}
+                    type='text'
+                    value={item.itemTotal}
                     placeholder="0.00"
                     readOnly
                      />

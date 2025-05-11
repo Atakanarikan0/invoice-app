@@ -6,75 +6,46 @@ import { DataContext } from '../../App.jsx';
 export default function EditInvoice() {
   const { data, setData, setCurrentInvoice, currentInvoice } = useContext(DataContext);
   const [formData, setFormData] = useState({ ...currentInvoice });
-  const [inputList, setInputList] = useState(() => {
-    const items = Object.keys(currentInvoice)
-      .filter(key => key.startsWith("itemName"))
-      .map((_, i) => ({
-        itemName: currentInvoice[`itemName${i + 1}`] || "",
-        itemQty: currentInvoice[`itemQty${i + 1}`] || "",
-        itemPrice: currentInvoice[`itemPrice${i + 1}`] || "",
-      }));
-    return items.length > 0 ? items : [{ itemName: '', itemQty: '', itemPrice: '' }];
-
-
-    const data = {
-      billFromCit: "asdas",
-      billFromCountry: "",
-      billFromPostCode: "asda",
-      billFromStreetAddress: "asdasd",
-      clientCity: "",
-      clientCountry: "",
-      clientEmail: "",
-      clientName: "",
-      clientPostCode: "",
-      clientStreetAddress: "",
-      id: "XM1B6T",
-      invoiceDate: "Invalid Date",
-      itemTotal1: "264.00",
-      pamentTerms: "30 days",
-      projectDescription: "",
-      status: "Pending",
-      items: [
-        {
-          id: 1,
-          itemName:  "",
-          itemQty: "",
-          itemPrice:  "",
-        },
-        {
-          id: 2,
-          itemName:  "",
-          itemQty: "",
-          itemPrice:  "",
-        },
-        {
-          id: 3,
-          itemName:  "",
-          itemQty: "",
-          itemPrice:  "",
-        }
-      ]
-    }
-  });
+  // const [inputList, setInputList] = useState(() => {
+  //   const items = Object.keys(currentInvoice)
+  //     .filter(key => key.startsWith("itemName"))
+  //     .map((_, i) => ({
+  //       itemName: currentInvoice[`itemName${i + 1}`] || "",
+  //       itemQty: currentInvoice[`itemQty${i + 1}`] || "",
+  //       itemPrice: currentInvoice[`itemPrice${i + 1}`] || "",
+  //     }));
+  //   return items.length > 0 ? items : [{ itemName: '', itemQty: '', itemPrice: '' }];
+  // });
   const handleItemChange = (index, field, value) => {
-    const updatedItems = [...inputList];
-    updatedItems[index][field] = value;
-    setFormData({ ...formData, items: updatedItems });
+    const updatedItems = [...formData.items];
+    const item = updatedItems[index];
+    item[field] = value;
+    item["itemTotal"] = (item.itemQty * item.itemPrice).toFixed(2)
+    setFormData({...formData, items: [...updatedItems]});
   };
   const addNewItem = () => {
-    setFormData({ ...formData, items: [...formData.items, { itemName: "", itemQty: "", itemPrice: "" }] });
+    setFormData({ ...formData, items: [...formData.items, {id: formData.items.at(-1).id + 1, itemName: "", itemQty: "", itemPrice: "" }] });
   };
   function handleSubmit(e) {
     e.preventDefault();
     const editForm = new FormData(e.target);
     const editFormObj = Object.fromEntries(editForm);
-    console.log(currentInvoice);
-    // console.log(editFormObj);
-    // const currentInvoice = {...formData}
-    // console.log(currentInvoice);
+
+    const newData = {
+      id: currentInvoice.id,
+      status: currentInvoice.status,
+      ...editFormObj,
+      items: [...formData.items]
+    }
+
+    const currentInvoiceIndex = data.findIndex(x => x.id === formData.id); 
+    data[currentInvoiceIndex] = newData;
+    setData([...data])
+    setCurrentInvoice(newData)
 
 
-    window.location.hash = "#/view-invoice";
+
+    // window.location.hash = "#/view-invoice";
   }
 
 
@@ -155,13 +126,12 @@ export default function EditInvoice() {
             </label>
           </div>
           <h3>Item List</h3>
-          {inputList.map((item, index) => (
+          {formData.items.map((item, index) => (
             <div key={index} className="create-input-group">
               <label>
                 <span>Item Name</span>
                 <input
                   type="text"
-                  name={`itemName${index + 1}`}
                   defaultValue={item.itemName}
                   onChange={(e) => handleItemChange(index, 'itemName', e.target.value)}
                   placeholder="Item Name"
@@ -172,7 +142,6 @@ export default function EditInvoice() {
                   <span>Qty.</span>
                   <input
                     type="text"
-                    name={`itemQty${index + 1}`}
                     defaultValue={item.itemQty}
                     onChange={(e) => handleItemChange(index, 'itemQty', e.target.value)}
                     placeholder="1"
@@ -182,7 +151,6 @@ export default function EditInvoice() {
                   <span>Price</span>
                   <input
                     type="text"
-                    name={`itemPrice${index + 1}`}
                     value={item.itemPrice}
                     onChange={(e) => handleItemChange(index, 'itemPrice', e.target.value)}
                     placeholder="0.00"
@@ -192,8 +160,7 @@ export default function EditInvoice() {
                   <span>Total</span>
                   <input
                     type='text'
-                    value={(item.itemQty * item.itemPrice).toFixed(2)}
-                    name={`itemTotal${index + 1}`}
+                    value={item.itemTotal}
                     placeholder="0.00"
                     readOnly
                   />
