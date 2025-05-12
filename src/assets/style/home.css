@@ -122,6 +122,10 @@ header {
       margin-left: 8px;
     }
   }
+
+  button:hover {
+    background: #9277FF;
+  }
 }
 
 .empty-invoice {
@@ -166,35 +170,30 @@ header {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
 
-      h3 {
-        font-weight: 700;
-        font-size: 15px;
-        line-height: 15px;
-        letter-spacing: -0.25px;
-
-        span {
-          color: #7E88C3;
-        }
-
+    h3 {
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 15px;
+      letter-spacing: -0.25px;
+      span {
+        color: #7E88C3;
       }
-
-      h4 {
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 15px;
-        letter-spacing: -0.1px;
-        color: #888EB0;
-        margin-top: 24px;
-      }
-
-      h5 {
-        font-weight: 700;
-        font-size: 15px;
-        line-height: 24px;
-        letter-spacing: -0.25px;
-      }
-
+    }
+    h4 {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: -0.1px;
+      color: #888EB0;
+      margin-top: 24px;
+    }
+    h5 {
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 24px;
+      letter-spacing: -0.25px;
     }
 
     div:last-child {
@@ -253,8 +252,9 @@ header {
   color: #373B53;
   margin-right: 10px;
 }
+
 .paid {
-  color:  #33D69F;
+  color: #33D69F;
   background-color: rgba(51, 214, 159, 0.06);
   padding: 14px 18px;
   border-radius: 6px;
@@ -265,9 +265,56 @@ header {
   list-style: none;
   display: flex;
 }
+
 .paid::before {
   content: "•";
   font-size: 30px;
   color: #33D69F;
   margin-right: 10px;
+}
+
+@media (min-width: 426px) {
+  .home-container {
+    margin-inline: 48px;
+    header {
+      margin-inline: -48px;
+      margin-bottom: 61px;
+  }
+  }
+
+
+
+  .input-group {
+    >div {
+      h3 {
+        font-size: 36px;
+        margin-bottom: 6px;
+      }
+
+    }
+  }
+
+  .card-group {
+    .card {
+      padding: 16px 24px;
+      align-items: center;
+
+      gap: 20px;
+
+      h4 {
+        margin-top: 0;
+
+      }
+      > span {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 15px;
+        letter-spacing: -0.1px;
+        color: #858BB2;
+        margin-right: 30px;
+      }
+
+    }
+  }
+
 }
