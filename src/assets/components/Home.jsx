@@ -7,12 +7,19 @@ import { useContext, useState } from "react"
 export default function Home() {
   const { data, setData, setCurrentInvoice, currentInvoice } = useContext(DataContext);
   const [filterValue, setFilterValue] = useState('All');
-  console.log(data);
 
   function handleClick(id) {
     const current = (data.find(x => x.id === id))
     setCurrentInvoice(current);
     window.location.hash = "#/view-invoice"
+  }
+
+    const grandTotal = (total) => {
+      let grandTotal = 0;
+      total?.map(item => {
+        grandTotal += Number(item)
+      });
+    return grandTotal;
   }
 
   function filterInvoice(filter) {
@@ -53,12 +60,7 @@ export default function Home() {
                 <div>
                   <h3><span>#</span>{x.id}</h3>
                   <h4>Due {x.invoiceDate}</h4>
-                  <h5>£{
-                    Object.keys(x)
-                      .filter(key => key.startsWith('itemTotal'))
-                      .reduce((acc, key) => acc + parseFloat(x[key] || 0), 0)
-                      .toFixed(2)
-                  }</h5>
+                  <h5>£{grandTotal(x.items.map(y => y.itemTotal)) }</h5>
                 </div>
                 <div>
                   <span>{x.clientName}</span>

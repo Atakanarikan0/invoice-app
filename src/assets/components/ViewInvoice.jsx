@@ -13,7 +13,7 @@ export default function ViewInvoice() {
   const grandTotal = () => {
     let grandTotal = 0;
     currentInvoice.items?.map(item => {
-      grandTotal =+ Number(item.itemTotal)
+      grandTotal += Number(item.itemTotal)
     });
     return grandTotal;
   }
@@ -22,14 +22,19 @@ export default function ViewInvoice() {
     window.location.hash = "#/";
   }
   function handlePaid() {
-    setCurrentInvoice({ ...currentInvoice, status: "Paid" });
+    const updatedInvoice = { ...currentInvoice, status: "Paid" };
+    setCurrentInvoice(updatedInvoice);
+
+    const uptadeStatus = data.map(x => x.id === updatedInvoice.id ? updatedInvoice : x)
+    setData(uptadeStatus)
+    
   }
   return (
     <>
       <div className="view-container">
         <Header />
         <div className='go-back'>
-          <button onClick={() => history.back()}>Go back</button>
+          <button onClick={() => window.location.hash = "#/"}>Go back</button>
         </div>
         <div className="status">
           <h5>Status</h5>

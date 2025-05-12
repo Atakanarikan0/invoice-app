@@ -6,6 +6,7 @@ import { DataContext } from '../../App.jsx';
 export default function EditInvoice() {
   const { data, setData, setCurrentInvoice, currentInvoice } = useContext(DataContext);
   const [formData, setFormData] = useState({ ...currentInvoice });
+
   // const [inputList, setInputList] = useState(() => {
   //   const items = Object.keys(currentInvoice)
   //     .filter(key => key.startsWith("itemName"))
@@ -16,6 +17,7 @@ export default function EditInvoice() {
   //     }));
   //   return items.length > 0 ? items : [{ itemName: '', itemQty: '', itemPrice: '' }];
   // });
+  
   const handleItemChange = (index, field, value) => {
     const updatedItems = [...formData.items];
     const item = updatedItems[index];
@@ -45,7 +47,7 @@ export default function EditInvoice() {
 
 
 
-    // window.location.hash = "#/view-invoice";
+    window.location.hash = "#/view-invoice";
   }
 
 
@@ -112,13 +114,14 @@ export default function EditInvoice() {
             </label>
             <label>
               <span>Invoice Date</span>
-              <input type="date" name={"invoiceDate"} defaultValue={formData.invoiceDate} />
+              <input type="text" readOnly className='edit-date' name={"invoiceDate"} defaultValue={formData.invoiceDate} />
             </label>
             <span>Payment Terms </span>
             <select name='pamentTerms' defaultValue={formData.pamentTerms}>
+              <option value="1 days">Net 1 Days</option>
+              <option value="7 days">Net 7 Days</option>
+              <option value="14 days">Net 14 Days</option>
               <option value="30 days">Net 30 Days</option>
-              <option value="45 days">Net 45 Days</option>
-              <option value="60 days">Net 60 Days</option>
             </select>
             <label>
               <span>Project Description</span>

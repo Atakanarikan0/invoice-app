@@ -55,7 +55,7 @@ export default function CreateInvoice() {
     console.log(myData);
     setData([...data, myData]);
     console.log(data);
-    //  window.history.back() 
+     window.history.back() 
   }
   function handleDeleteItem(index) {
     setInputList(inputList.filter((_,i) => i !== index))
@@ -77,64 +77,65 @@ export default function CreateInvoice() {
           <div className='create-input-group'>
             <label>
               <span>Street Address</span>
-              <input type="text" name={"billFromStreetAddress"} placeholder='19 Union Terrace' />
+              <input required type="text" name={"billFromStreetAddress"} placeholder='19 Union Terrace' />
             </label>
             <div className='input-flex'>
               <label>
                 <span>City</span>
-                <input type="text"  name={"billFromCity"} placeholder='London' />
+                <input required type="text"  name={"billFromCity"} placeholder='London' />
               </label>
               <label>
                 <span>Post Code</span>
-                <input type="text" name={"billFromPostCode"} placeholder='E1 3EZ' />
+                <input required type="text" name={"billFromPostCode"} placeholder='E1 3EZ' />
               </label>
             </div>
             <label>
               <span>Country</span>
-              <input type="text" name={"billFromCountry"} placeholder='United Kingdom' />
+              <input required type="text" name={"billFromCountry"} placeholder='United Kingdom' />
             </label>
           </div>
           <span>Bill To</span>
           <div className='create-input-group'>
             <label>
               <span>Client’s Name</span>
-              <input type="text" name={"clientName"} placeholder='Alex Grim' />
+              <input required type="text" name={"clientName"} placeholder='Alex Grim' />
             </label>
             <label>
               <span>Client’s Email</span>
-              <input type="email" name={"clientEmail"} placeholder='alexgrim@mail.com' />
+              <input required type="email" name={"clientEmail"} placeholder='alexgrim@mail.com' />
             </label>
             <label>
               <span>Street Address</span>
-              <input type="text" name={"clientStreetAddress"} placeholder='84 Church Way' />
+              <input required type="text" name={"clientStreetAddress"} placeholder='84 Church Way' />
             </label>
             <div className='input-flex'>
               <label>
                 <span>City</span>
-                <input type="text" name={"clientCity"} placeholder='Bradford' />
+                <input required type="text" name={"clientCity"} placeholder='Bradford' />
               </label>
               <label>
                 <span>Post Code</span>
-                <input type="text" name={"clientPostCode"} placeholder='BD1 9PB' />
+                <input required type="text" name={"clientPostCode"} placeholder='BD1 9PB' />
               </label>
             </div>
             <label>
               <span>Country</span>
-              <input type="text" name={"clientCountry"} placeholder='United Kingdom' />
+              <input required type="text" name={"clientCountry"} placeholder='United Kingdom' />
             </label>
             <label>
               <span>Invoice Date</span>
-              <input type="date" name={"invoiceDate"} />
+              <input required type="date" name={"invoiceDate"} />
             </label>
-            <span>Payment Terms </span>
+            <span>Payment Terms </span> 
             <select name='pamentTerms' >
+              <option value="1 days">Net 1 Days</option>
+              <option value="7 days">Net 7 Days</option>
+              <option value="14 days">Net 14 Days</option>
               <option value="30 days">Net 30 Days</option>
-              <option value="45 days">Net 45 Days</option>
-              <option value="60 days">Net 60 Days</option>
             </select>
             <label>
               <span>Project Description</span>
-              <input type="text" name={"projectDescription"} placeholder='Graphic Design' />
+              <input required type="text" name={"projectDescription"} placeholder='Graphic Design' />
             </label>
           </div>
           <h3>Item List</h3>
@@ -155,6 +156,7 @@ export default function CreateInvoice() {
                   <span>Qty.</span>
                   <input
                     type="text"
+                    required
                     value={item.itemQty}
                     onChange={(e) => handleItemChange(index, 'itemQty', e.target.value)}
                     placeholder="1"
@@ -164,6 +166,7 @@ export default function CreateInvoice() {
                   <span>Price</span>
                   <input
                     type="text"
+                    required
                     value={item.itemPrice}
                     onChange={(e) => handleItemChange(index, 'itemPrice', e.target.value)}
                     placeholder="0.00"
@@ -190,7 +193,7 @@ export default function CreateInvoice() {
           <div className='gradient'></div>
         </div>
         <div className="btn-group">
-          <button type="button">Discard</button>
+          <button type="button" onClick={() => window.history.back()}>Discard</button>
           <button className='draft-btn' type='submit' onClick={() => setStatus("Draft")}>Save as Draft</button>
           <button type='submit' onClick={() => setStatus("Pending")}>Save & Send</button>
         </div>
