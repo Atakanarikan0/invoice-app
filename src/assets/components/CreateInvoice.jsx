@@ -40,9 +40,6 @@ export default function CreateInvoice() {
     const formObj = Object.fromEntries(formData);
     formObj.invoiceDate = formatDate(formObj.invoiceDate);
     formObj.status = status;
-    // const newInvoice = {
-    //   id: generateSecureRandomId(),
-    //  }
     const itemData = inputList.map((item, index) => {
      return {id: index + 1, ...item}
     }

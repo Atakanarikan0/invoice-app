@@ -15,7 +15,7 @@ export default function ViewInvoice() {
     currentInvoice.items?.map(item => {
       grandTotal += Number(item.itemTotal)
     });
-    return grandTotal;
+    return grandTotal.toFixed(2);
   }
   function handleDelete(id) {
     setData(data.filter(x => x.id !== id));
@@ -36,76 +36,160 @@ export default function ViewInvoice() {
         <div className='go-back'>
           <button onClick={() => window.location.hash = "#/"}>Go back</button>
         </div>
-
-        <div className="status">
-          <h5>Status</h5>
-          <span className={currentInvoice.status === "Pending" ? "pending" : currentInvoice.status === "Paid" ? "paid" : "draft"}>{currentInvoice.status}</span>
-        </div>
-        <div className="payment-area">
-          <div className="payment-desc">
-            <h3><span>#</span>{currentInvoice.id}</h3>
-            <h5>{currentInvoice.projectDescription}</h5>
-          </div>
-          <div className='payment-adress'>
-            <h5>{currentInvoice.billFromStreetAddress}</h5>
-            <h5>{currentInvoice.billFromCity}</h5>
-            <h5>{currentInvoice.billFromPostCode}</h5>
-            <h5>{currentInvoice.billFromCountry}</h5>
-          </div>
-          <div className="paymentbill">
-            <div className="invoice-date">
-              <h5>Invoice Date</h5>
-              <h3>{currentInvoice.invoiceDate}</h3>
+        {screenSize ?
+          <>
+            <div className="status">
+              <h5>Status</h5>
+              <span className={currentInvoice.status === "Pending" ? "pending" : currentInvoice.status === "Paid" ? "paid" : "draft"}>{currentInvoice.status}</span>
             </div>
-            <div className="bill-info">
-              <h4>Bill To</h4>
-              <h3>{currentInvoice.clientName}</h3>
-              <h5>{currentInvoice.clientStreetAddress}</h5>
-              <h5>{currentInvoice.clientCity}</h5>
-              <h5>{currentInvoice.clientPostCode}</h5>
-              <h5>{currentInvoice.clientCountry}</h5>
-            </div>
-            <div className="payment-due">
-              <h5>Payment Due</h5>
-              <h3>20 Sep 2021</h3>
-            </div>
-            <div className="sent-to">
-              <h5>Sent to</h5>
-              <h3>{currentInvoice.clientEmail}</h3>
-            </div>
-          </div>
-          <div className="payment">
-            {currentInvoice.items.map(x =>
-            (
-              <div className="pay-group" key={x.id}>
-                <div>
-                  <h3>{x.itemName}</h3>
-                  <span>{x.itemQty} x £ {x.itemPrice}</span>
-                </div>
-                <h6>£ {x.itemTotal}</h6>
+            <div className="payment-area">
+              <div className="payment-desc">
+                <h3><span>#</span>{currentInvoice.id}</h3>
+                <h5>{currentInvoice.projectDescription}</h5>
               </div>
-            )
-            )
-            }
-          </div>
-          <div className="grand-total">
-            <h3>Grand Total</h3>
-            <h2>£ {grandTotal()
+              <div className='payment-adress'>
+                <h5>{currentInvoice.billFromStreetAddress}</h5>
+                <h5>{currentInvoice.billFromCity}</h5>
+                <h5>{currentInvoice.billFromPostCode}</h5>
+                <h5>{currentInvoice.billFromCountry}</h5>
+              </div>
+              <div className="paymentbill">
+                <div className="invoice-date">
+                  <h5>Invoice Date</h5>
+                  <h3>{currentInvoice.invoiceDate}</h3>
+                </div>
+                <div className="bill-info">
+                  <h4>Bill To</h4>
+                  <h3>{currentInvoice.clientName}</h3>
+                  <h5>{currentInvoice.clientStreetAddress}</h5>
+                  <h5>{currentInvoice.clientCity}</h5>
+                  <h5>{currentInvoice.clientPostCode}</h5>
+                  <h5>{currentInvoice.clientCountry}</h5>
+                </div>
+                <div className="payment-due">
+                  <h5>Payment Due</h5>
+                  <h3>20 Sep 2021</h3>
+                </div>
+                <div className="sent-to">
+                  <h5>Sent to</h5>
+                  <h3>{currentInvoice.clientEmail}</h3>
+                </div>
+              </div>
+              <div className="payment">
+                {currentInvoice.items.map(x =>
+                (
+                  <div className="pay-group" key={x.id}>
+                    <div>
+                      <h3>{x.itemName}</h3>
+                      <span>{x.itemQty} x £ {x.itemPrice}</span>
+                    </div>
+                    <h6>£ {x.itemTotal}</h6>
+                  </div>
+                )
+                )
+                }
+              </div>
+              <div className="grand-total">
+                <h3>Grand Total</h3>
+                <h2>£ {grandTotal()
 
-              // Object.keys(currentInvoice.items.itemtotal)
-              //   .filter(key => key.startsWith('itemTotal'))
-              //   .reduce((acc, key) => acc + parseFloat(currentInvoice[key] || 0), 0)
-              //   .toFixed(2)
-            }</h2>
-          </div>
-        </div>
-        <div className="btn-group">
-          <button onClick={() => window.location.hash = "#/edit-invoice"}>Edit</button>
-          <button onClick={handleDialog}>Delete</button>
-          <button onClick={handlePaid}>Mark as Paid</button>
-        </div>
+                  // Object.keys(currentInvoice.items.itemtotal)
+                  //   .filter(key => key.startsWith('itemTotal'))
+                  //   .reduce((acc, key) => acc + parseFloat(currentInvoice[key] || 0), 0)
+                  //   .toFixed(2)
+                }</h2>
+              </div>
+            </div>
+            <div className="btn-group">
+              <button onClick={() => window.location.hash = "#/edit-invoice"}>Edit</button>
+              <button onClick={handleDialog}>Delete</button>
+              <button onClick={handlePaid}>Mark as Paid</button>
+            </div>
+          </>
+          :
+          <>
+            <div className="status">
+              <h5>Status</h5>
+              <span className={currentInvoice.status === "Pending" ? "pending" : currentInvoice.status === "Paid" ? "paid" : "draft"}>{currentInvoice.status}</span>
+              <div className="btn-group">
+                <button onClick={() => window.location.hash = "#/edit-invoice"}>Edit</button>
+                <button onClick={handleDialog}>Delete</button>
+                <button onClick={handlePaid}>Mark as Paid</button>
+              </div>
+            </div>
+            <div className="payment-area">
+              <div className="flex-1">
+                <div className="payment-desc">
+                  <h3><span>#</span>{currentInvoice.id}</h3>
+                  <h5>{currentInvoice.projectDescription}</h5>
+                </div>
+                <div className='payment-adress'>
+                  <h5>{currentInvoice.billFromStreetAddress}</h5>
+                  <h5>{currentInvoice.billFromCity}</h5>
+                  <h5>{currentInvoice.billFromPostCode}</h5>
+                  <h5>{currentInvoice.billFromCountry}</h5>
+                </div>
+              </div>
+              <div className="paymentbill">
+                <div className="payment-group">
+                  <div className="invoice-date">
+                    <h5>Invoice Date</h5>
+                    <h3>{currentInvoice.invoiceDate}</h3>
+                  </div>
+                  <div className="payment-due">
+                    <h5>Payment Due</h5>
+                    <h3>20 Sep 2021</h3>
+                  </div>
+                </div>
+                <div className="bill-info">
+                  <h4>Bill To</h4>
+                  <h3>{currentInvoice.clientName}</h3>
+                  <h5>{currentInvoice.clientStreetAddress}</h5>
+                  <h5>{currentInvoice.clientCity}</h5>
+                  <h5>{currentInvoice.clientPostCode}</h5>
+                  <h5>{currentInvoice.clientCountry}</h5>
+                </div>
+                <div className="sent-to">
+                  <h5>Sent to</h5>
+                  <h3>{currentInvoice.clientEmail}</h3>
+                </div>
+              </div>
+              <div className="payment">
+                <table className="invoice-table" >
+                  <thead>
+                    <tr>
+                      <th>Item Name</th>
+                      <th style={{ textAlign: "right" }}>Qty.</th>
+                      <th style={{ textAlign: "right" }}>Price</th>
+                      <th style={{ textAlign: "right" }}>Total</th>
+                    </tr>
+                  </thead>
+                  {currentInvoice.items.map(x =>
+                  <tbody>
+                    <tr key={x.id}>
+                      <td>{x.itemName}</td>
+                      <td style={{ textAlign: "right" }}>{x.itemQty}</td>
+                      <td style={{ textAlign: "right" }}>£ {x.itemPrice}</td>
+                      <td style={{ textAlign: "right" }}>£ {x.itemTotal}</td>
+                    </tr>
+                  </tbody>
+                    )
+                }
+                </table>         
+              </div>
+              <div className="grand-total">
+                <h3>{screenSize ? "Grand Total" : "Amount Due"}</h3>
+                <h2>£ {grandTotal()
 
-
+                  // Object.keys(currentInvoice.items.itemtotal)
+                  //   .filter(key => key.startsWith('itemTotal'))
+                  //   .reduce((acc, key) => acc + parseFloat(currentInvoice[key] || 0), 0)
+                  //   .toFixed(2)
+                }</h2>
+              </div>
+            </div>
+          </>
+        }
       </div>
       <dialog ref={dialogRef}>
         <h4>Confirm Deletion</h4>
