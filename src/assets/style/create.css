@@ -60,6 +60,9 @@
     margin-bottom: 24px;
 
   }
+  button:hover {
+    background: #DFE3FA;
+  }
 }
 
 .create-input-group {
@@ -183,12 +186,27 @@
     white-space: nowrap;
   }
 
+
   .draft-btn {
     background: #373B53 !important;
     color: #888EB0 !important;
+  }
+  .draft-btn:hover {
+    background: #0C0E16 !important;
   }
   button:last-child {
     background: #7C5DFA;
     color: #FFF;
   }
+  button:last-child:hover {
+    background: #9277FF;
+  }
+  button:first-child:hover {
+    background: #DFE3FA;
+  }
+  
+}
+
+input:focus {
+  border: 1px solid #9277FF;
 }

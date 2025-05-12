@@ -66,7 +66,7 @@ export default function CreateInvoice() {
       <div className='go-back'>
         <button onClick={() => history.back()}>Go back</button>
       </div>
-      <form onSubmit={handleSubmit} onKeyDown={(e) => {
+      <form  autoComplete="off" onSubmit={handleSubmit} onKeyDown={(e) => {
         if(e.key === 'Enter') {
           e.preventDefault();
         }

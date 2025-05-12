@@ -60,7 +60,7 @@ export default function EditInvoice() {
       <div className='go-back'>
         <button onClick={() => history.back()}>Go back</button>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form  autoComplete="off" onSubmit={handleSubmit}>
         <div className='new-invoice'>
           <h2>New Invoice</h2>
           <span>Bill From</span>

@@ -2,23 +2,25 @@ import "../style/Home.css"
 import Header from "./Header.jsx"
 import { DataContext } from "../../App.jsx"
 import { useContext, useState } from "react"
+import CreateInvoice from "./CreateInvoice.jsx";
 
 
 export default function Home() {
-  const { data, setData, setCurrentInvoice, currentInvoice } = useContext(DataContext);
+  const { data, setData, setCurrentInvoice, currentInvoice, screenSize } = useContext(DataContext);
   const [filterValue, setFilterValue] = useState('All');
-
+  console.log(screenSize);
+  console.log(data);
   function handleClick(id) {
     const current = (data.find(x => x.id === id))
     setCurrentInvoice(current);
     window.location.hash = "#/view-invoice"
   }
 
-    const grandTotal = (total) => {
-      let grandTotal = 0;
-      total?.map(item => {
-        grandTotal += Number(item)
-      });
+  const grandTotal = (total) => {
+    let grandTotal = 0;
+    total?.map(item => {
+      grandTotal += Number(item)
+    });
     return grandTotal;
   }
 
@@ -42,7 +44,7 @@ export default function Home() {
         </select>
         <button onClick={() => window.location.hash = "#/create-invoice"}>
           <img src="/public/img/plus-icon.svg" alt="" />
-          <h6>New</h6>
+          <h6>{screenSize ? "New" : "New Invoice"}</h6>
         </button>
       </div>
       {data.length === 0 ?
@@ -55,18 +57,31 @@ export default function Home() {
         <div className="card-group">
           {data
             .filter(x => filterValue === "All" || x.status === filterValue)
-            .map(x =>
+            .map(x => {
               <div className="card" key={x.id} onClick={() => handleClick(x.id)}>
-                <div>
-                  <h3><span>#</span>{x.id}</h3>
-                  <h4>Due {x.invoiceDate}</h4>
-                  <h5>£{grandTotal(x.items.map(y => y.itemTotal)) }</h5>
-                </div>
-                <div>
-                  <span>{x.clientName}</span>
-                  <li className={x.status === "Pending" ? "pending" : x.status === "Paid"  ? "paid" :"draft"}>{x.status}</li>
-                </div>
-              </div>
+                {screenSize ?
+                  <>
+                    <div>
+                      <h3><span>#</span>{x.id}</h3>
+                      <h4>Due {x.invoiceDate}</h4>
+                      <h5>£{grandTotal(x.items.map(y => y.itemTotal))}</h5>
+                    </div>
+                    <div>
+                      <span>{x.clientName}</span>
+                      <li className={x.status === "Pending" ? "pending" : x.status === "Paid" ? "paid" : "draft"}>{x.status}</li>
+                    </div>
+                  </>
+                  :
+                  <>
+                    <h3><span>#</span>{x.id}</h3>
+                    <h4>Due {x.invoiceDate}</h4>
+                    <span>{x.clientName}</span>
+                    <h5>£{grandTotal(x.items.map(y => y.itemTotal))}</h5>
+                    <li className={x.status === "Pending" ? "pending" : x.status === "Paid" ? "paid" : "draft"}>{x.status}</li>
+                    <img src="/public/img/right-icon.svg" alt="Right Icon" />
+                  </>
+                }
+              </div>}
             )}
         </div>
       }

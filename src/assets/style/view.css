@@ -159,6 +159,9 @@
     background: #EC5757;
     color: #FFF;
  }
+ button:nth-child(2):hover {
+  background: #FF9797;
+ }
 
 }
 

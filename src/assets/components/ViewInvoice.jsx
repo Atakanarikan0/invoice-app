@@ -6,7 +6,7 @@ import { useContext, useRef } from "react"
 
 export default function ViewInvoice() {
   const dialogRef = useRef(false)
-  const { data, setData, setCurrentInvoice, currentInvoice } = useContext(DataContext);
+  const { data, setData, setCurrentInvoice, currentInvoice, screenSize } = useContext(DataContext);
   function handleDialog() {
     dialogRef.current.showModal();
   }
@@ -27,7 +27,7 @@ export default function ViewInvoice() {
 
     const uptadeStatus = data.map(x => x.id === updatedInvoice.id ? updatedInvoice : x)
     setData(uptadeStatus)
-    
+
   }
   return (
     <>
@@ -36,6 +36,7 @@ export default function ViewInvoice() {
         <div className='go-back'>
           <button onClick={() => window.location.hash = "#/"}>Go back</button>
         </div>
+
         <div className="status">
           <h5>Status</h5>
           <span className={currentInvoice.status === "Pending" ? "pending" : currentInvoice.status === "Paid" ? "paid" : "draft"}>{currentInvoice.status}</span>
@@ -103,6 +104,8 @@ export default function ViewInvoice() {
           <button onClick={handleDialog}>Delete</button>
           <button onClick={handlePaid}>Mark as Paid</button>
         </div>
+
+
       </div>
       <dialog ref={dialogRef}>
         <h4>Confirm Deletion</h4>
