@@ -43,6 +43,7 @@ export default function Home() {
   return (
     <div className="home-container">
       <Header />
+
       <div className="input-group">
         <div>
           <h3>Invoices</h3>

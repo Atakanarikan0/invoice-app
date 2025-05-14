@@ -328,7 +328,6 @@ dialog {
     width: 100%;
     border-collapse: collapse;
   }
-
   .invoice-table th {
     font-weight: 500;
     font-size: 13px;
@@ -337,7 +336,6 @@ dialog {
     color: #7E88C3;
 
   }
-
   .invoice-table th,
   .invoice-table td {
     padding: 8px;
@@ -360,7 +358,6 @@ dialog {
     color: #7E88C3;
 
   }
-
   .invoice-table th {
     text-align: left;
   }
