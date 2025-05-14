@@ -1,15 +1,22 @@
 import "../style/Home.css"
 import Header from "./Header.jsx"
 import { DataContext } from "../../App.jsx"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import CreateInvoice from "./CreateInvoice.jsx";
 
 
 export default function Home() {
   const { data, setData, setCurrentInvoice, currentInvoice, screenSize } = useContext(DataContext);
   const [filterValue, setFilterValue] = useState('All');
-  console.log(screenSize);
-  console.log(data);
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
+  useEffect(() => {
+    if (showCreateDialog) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+  }, [showCreateDialog])
+
   function handleClick(id) {
     const current = (data.find(x => x.id === id))
     setCurrentInvoice(current);
@@ -18,48 +25,66 @@ export default function Home() {
 
   const grandTotal = (total) => {
     let grandTotal = 0;
-    total?.map(item => {
-      grandTotal += Number(item)
+    total?.forEach(item => {
+      grandTotal += Number(item);
     });
-    return grandTotal;
-  }
+    return grandTotal.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  };
 
   function filterInvoice(filter) {
     setFilterValue(filter);
     // setData(data.find(x => x.status === filter))
   }
+  const filteredData = data.filter(x => filterValue === "All" || x.status === filterValue);
+
   return (
     <div className="home-container">
       <Header />
-
       <div className="input-group">
         <div>
           <h3>Invoices</h3>
           <span>
             {screenSize
-              ? data.length === 0
+              ? filteredData.length === 0
                 ? 'No Invoices'
                 : data.length !== 1
-                  ? `${data.length} invoices`
-                  : `${data.length} invoice`
-              : data.length === 0
+                  ? `${filteredData.length} invoices`
+                  : `${filteredData.length} invoice`
+              : filteredData.length === 0
                 ? 'No invoices'
-                : data.length === 1
+                : filteredData.length === 1
                   ? 'There is 1 total invoice'
-                  : `There are ${data.length} total invoices`}
-          </span>        </div>
+                  : `There are ${filteredData.length} total invoices`}
+          </span>
+        </div>
         <select name="filter-box" value={filterValue} onChange={(e) => filterInvoice(e.target.value)}>
           <option value="All">All</option>
           <option value="Paid">Paid</option>
           <option value="Pending">Pending</option>
           <option value="Draft">Draft</option>
         </select>
-        <button onClick={() => window.location.hash = "#/create-invoice"}>
+        <button onClick={() => {
+          if (screenSize) {
+            window.location.hash = "#/create-invoice";
+          } else {
+            setShowCreateDialog(true)
+          }
+        }}>
           <img src="/public/img/plus-icon.svg" alt="" />
           <h6>{screenSize ? "New" : "New Invoice"}</h6>
         </button>
       </div>
-      {data.length === 0 ?
+      {!screenSize && showCreateDialog && (
+        <div className="modal-overlay" onClick={() => setShowCreateDialog(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <CreateInvoice closeModal={() => setShowCreateDialog(false)} />
+          </div>
+        </div>
+      )}
+      {filteredData.length === 0 ?
         <div className="empty-invoice">
           <img src="/public/img/empty-invoice.png" alt="Empty Invoice" />
           <h5>There is nothing here</h5>
@@ -67,8 +92,7 @@ export default function Home() {
         </div>
         :
         <div className="card-group">
-          {data
-            .filter(x => filterValue === "All" || x.status === filterValue)
+          {filteredData
             .map(x =>
               <div className="card" key={x.id} onClick={() => handleClick(x.id)}>
                 {screenSize ? (

@@ -177,10 +177,12 @@ header {
       font-size: 15px;
       line-height: 15px;
       letter-spacing: -0.25px;
+
       span {
         color: #7E88C3;
       }
     }
+
     h4 {
       font-weight: 500;
       font-size: 13px;
@@ -189,6 +191,7 @@ header {
       color: #888EB0;
       margin-top: 24px;
     }
+
     h5 {
       font-weight: 700;
       font-size: 15px;
@@ -272,18 +275,48 @@ header {
   color: #33D69F;
   margin-right: 10px;
 }
-
-@media (min-width: 426px) {
+  body.modal-open {
+    overflow: hidden;
+  }
+@media (min-width: 446px) {
   .home-container {
     margin-inline: 48px;
+
     header {
       margin-inline: -48px;
       margin-bottom: 61px;
+      z-index: 1;
+    }
   }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items:flex-start;
+    z-index: 1000;
+    margin-top: 74px;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 59px 56px;
+    border-radius: 0px 20px 20px 0;
+    max-width: 616px;
+    max-height: 100vh;
+    overflow-y: auto;
   }
 
 
 
+
+  .gradient {
+    margin-inline: -86px !important; 
+  }
   .input-group {
     >div {
       h3 {
@@ -305,7 +338,8 @@ header {
         margin-top: 0;
 
       }
-      > span {
+
+      >span {
         font-weight: 500;
         font-size: 13px;
         line-height: 15px;
@@ -315,6 +349,44 @@ header {
       }
 
     }
+  }
+
+}
+@media (min-width: 1024px) {
+  .home-container {
+    margin-inline: auto;
+    max-width: 730px;
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin-inline: 0;
+      border-radius: 0 20px 20px 0;
+      label {
+        margin-top: auto;
+        margin-left: 0;
+        padding: 0;
+        border-bottom: 1px solid #494E6E;
+        padding-bottom: 24px;
+      }
+      >div {
+        padding: 22px;
+      }
+      >img {
+        padding: 24px;
+      }
+    }
+  }
+  .input-group {
+    margin-block: 77px 64px;
+  }
+
+  .modal-overlay {
+    margin-top: 0;
+    margin-left: 80px;
   }
 
 }

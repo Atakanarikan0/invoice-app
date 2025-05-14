@@ -1,9 +1,56 @@
 .edit-container {
   padding-inline: 24px;
+  h2{
+    span {
+      color: #959596;
+    }
+  }
 }
 .btn-group {
   justify-content: end;
 }
 .edit-date {
   color: #959596
+}
+@media (min-width: 446px) {
+  .edit-container {
+    padding: 0;
+        .gradient {
+      position: fixed;
+      bottom: 80px;
+      left: 0;
+      width: 616px;
+      margin: 0 !important;
+    }
+
+    .btn-group {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 616px;
+      padding: 31px 56px;
+      border-radius: 20px 20px 0 0;
+
+      button:last-child {
+        color: #FFF;
+        background: #7C5DFA;
+        &:hover {
+          background: #9277FF;
+        }
+      }
+
+    }
+  }
+}
+@media (min-width: 1024px) {
+  header {
+    z-index: 12312 !important;
+  }
+  .gradient {
+    left: 80px !important;
+  }
+  .btn-group {
+    left:  80px !important;
+    border-radius: 0 20px 20px!important;
+  }
 }

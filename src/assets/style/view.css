@@ -244,7 +244,7 @@ dialog {
   background: rgba(0, 0, 0, 0.5);
 }
 
-@media (min-width: 426px) {
+@media (min-width: 446px) {
   header {
     margin-inline: -40px;
     margin-bottom: 49px;
@@ -263,11 +263,15 @@ dialog {
   .status {
     padding: 20px 32px;
     margin-bottom: 24px;
+
+    .pending, .paid, .draft {
+      margin-right: auto;
+      margin-left: 20px;
+    }
   }
 
-  .pending {
-    margin-right: auto;
-    margin-left: 20px;
+  dialog {
+    margin-top: 30%;
   }
 
   .payment-area {
@@ -324,6 +328,7 @@ dialog {
     width: 100%;
     border-collapse: collapse;
   }
+
   .invoice-table th {
     font-weight: 500;
     font-size: 13px;
@@ -332,17 +337,22 @@ dialog {
     color: #7E88C3;
 
   }
+
   .invoice-table th,
   .invoice-table td {
     padding: 8px;
   }
-  .invoice-table td:nth-child(1),td:nth-child(4) {
+
+  .invoice-table td:nth-child(1),
+  td:nth-child(4) {
     font-weight: 700;
     font-size: 15px;
     line-height: 15px;
     letter-spacing: -0.25px;
   }
-  .invoice-table td:nth-child(2),td:nth-child(3) {
+
+  .invoice-table td:nth-child(2),
+  td:nth-child(3) {
     font-weight: 700;
     font-size: 15px;
     line-height: 15px;
@@ -350,6 +360,7 @@ dialog {
     color: #7E88C3;
 
   }
+
   .invoice-table th {
     text-align: left;
   }
@@ -357,4 +368,36 @@ dialog {
   /* .invoice-table td:nth-child(2) {
   text-align: right; 
 } */
+}
+@media (min-width: 1024px) {
+  .view-container {
+    margin-inline: auto;
+    max-width: 730px;
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin-inline: 0;
+      border-radius: 0 20px 20px 0;
+      label {
+        margin-top: auto;
+        margin-left: 0;
+        padding: 0;
+        border-bottom: 1px solid #494E6E;
+        padding-bottom: 24px;
+      }
+      >div {
+        padding: 22px;
+      }
+      >img {
+        padding: 24px;
+      }
+    }
+  }
+  .go-back {
+    margin-block: 65px 31px;
+  }
 }

@@ -1,22 +1,35 @@
 import Header from "./Header"
 import '../style/view.css'
 import { DataContext } from "../../App.jsx"
-import { useContext, useRef } from "react"
+import { useContext, useRef, useState, useEffect } from "react"
+import EditInvoice from "./EditInvoice.jsx"
 
 
 export default function ViewInvoice() {
   const dialogRef = useRef(false)
   const { data, setData, setCurrentInvoice, currentInvoice, screenSize } = useContext(DataContext);
+  const [showEditDialog, setShowEditDialog] = useState(false);
+useEffect(() => {
+  if(showEditDialog) {
+    document.body.classList.add('modal-open');
+  }else {
+    document.body.classList.remove('modal-open');
+  }
+}, [showEditDialog])
   function handleDialog() {
     dialogRef.current.showModal();
   }
+
   const grandTotal = () => {
     let grandTotal = 0;
     currentInvoice.items?.map(item => {
       grandTotal += Number(item.itemTotal)
     });
-    return grandTotal.toFixed(2);
-  }
+    return grandTotal.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  };
   function handleDelete(id) {
     setData(data.filter(x => x.id !== id));
     window.location.hash = "#/";
@@ -36,6 +49,13 @@ export default function ViewInvoice() {
         <div className='go-back'>
           <button onClick={() => window.location.hash = "#/"}>Go back</button>
         </div>
+        {!screenSize && showEditDialog && (
+          <div className="modal-overlay" onClick={() => setShowEditDialog(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <EditInvoice closeModal={() => setShowEditDialog(false)} />
+            </div>
+          </div>
+        )}
         {screenSize ?
           <>
             <div className="status">
@@ -112,7 +132,13 @@ export default function ViewInvoice() {
               <h5>Status</h5>
               <span className={currentInvoice.status === "Pending" ? "pending" : currentInvoice.status === "Paid" ? "paid" : "draft"}>{currentInvoice.status}</span>
               <div className="btn-group">
-                <button onClick={() => window.location.hash = "#/edit-invoice"}>Edit</button>
+                <button onClick={() => {
+                  if (showEditDialog) {
+                    window.location.hash = "#/edit-invoice"
+                  } else {
+                    setShowEditDialog(true)
+                  }
+                }}>Edit</button>
                 <button onClick={handleDialog}>Delete</button>
                 <button onClick={handlePaid}>Mark as Paid</button>
               </div>
@@ -138,7 +164,7 @@ export default function ViewInvoice() {
                   </div>
                   <div className="payment-due">
                     <h5>Payment Due</h5>
-                    <h3>20 Sep 2021</h3>
+                    <h3>20 Sep 2026</h3>
                   </div>
                 </div>
                 <div className="bill-info">
@@ -165,17 +191,23 @@ export default function ViewInvoice() {
                     </tr>
                   </thead>
                   {currentInvoice.items.map(x =>
-                  <tbody>
-                    <tr key={x.id}>
-                      <td>{x.itemName}</td>
-                      <td style={{ textAlign: "right" }}>{x.itemQty}</td>
-                      <td style={{ textAlign: "right" }}>£ {x.itemPrice}</td>
-                      <td style={{ textAlign: "right" }}>£ {x.itemTotal}</td>
-                    </tr>
-                  </tbody>
-                    )
-                }
-                </table>         
+                    <tbody>
+                      <tr key={x.id}>
+                        <td>{x.itemName}</td>
+                        <td style={{ textAlign: "right" }}>{x.itemQty}</td>
+                        <td style={{ textAlign: "right" }}>  £ {Number(x.itemPrice).toLocaleString('en-US', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })}</td>
+                        <td style={{ textAlign: "right" }}>  £ {Number(x.itemTotal).toLocaleString('en-US', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })}</td>
+                      </tr>
+                    </tbody>
+                  )
+                  }
+                </table>
               </div>
               <div className="grand-total">
                 <h3>{screenSize ? "Grand Total" : "Amount Due"}</h3>
