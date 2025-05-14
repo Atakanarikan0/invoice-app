@@ -10,6 +10,7 @@ function App() {
   const [screenSize, setScreenSize] = useState(window.innerWidth < 445);
   const [url, setUrl] = useState(location.hash.substring(1) || "/");
   const page = getPage(url)
+  const [isEdit, setIsEdit] = useState(false);
 
 
   useEffect(() => {
@@ -33,7 +34,7 @@ function App() {
 
   return (
     <>
-      <DataContext.Provider value={{data, setData, setCurrentInvoice, currentInvoice, status, setStatus, screenSize, }}>
+      <DataContext.Provider value={{data, setData, setCurrentInvoice, currentInvoice, status, setStatus, screenSize, isEdit, setIsEdit }}>
         {page.component}
       </DataContext.Provider>
     </>

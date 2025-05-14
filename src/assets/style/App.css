@@ -1,0 +1,150 @@
+body.dark-mode {
+  background: #141625ed;
+
+  .go-back {
+    button {
+      color: #FFF;
+    }
+  }
+
+  h3,
+  h5 {
+    color: #FFF;
+  }
+
+  h4 {
+    color: #DFE3FA !important;
+  }
+
+  span {
+    color: #DFE3FA !important;
+  }
+
+  select {
+    color: #FFF;
+  }
+
+  option {
+    color: #000;
+  }
+
+  .card,
+  .status,
+  .btn-group,
+  .payment-area {
+    background: #1E2139;
+    box-shadow: 0px 10px 10px -10px #48549F1A;
+  }
+
+  .btn-group button:first-child {
+    background: #252945;
+    color: #DFE3FA;
+
+    &:hover {
+      background: #FFFFFF;
+    }
+  }
+
+  .payment {
+    background: #252945;
+    h6 {
+      color: #DFE3FA;
+    }
+  }
+
+  .grand-total {
+    background: #0C0E16;
+  }
+
+  .payment-area {
+
+    h5,
+    th {
+      color: #DFE3FA;
+    }
+
+    td {
+      color: #FFF
+    }
+  }
+
+  .modal-content {
+    background: #141625;
+
+    h2 {
+      color: #FFF;
+    }
+
+    input {
+      background: #1E2139;
+      border: none;
+      color: #FFF;
+    }
+
+    select {
+      background: #1E2139;
+      border: none;
+    }
+
+    option {
+      color: #FFF;
+    }
+
+  }
+  .new-invoice { 
+    h2 {
+      color: #FFF;
+    }
+    >span {
+      color: #7C5DFA !important;
+    }
+    input {
+      background: #1E2139;
+      border: none;
+      color: #FFF;
+    }
+    >button {
+      background: #252945;
+      color: #DFE3FA;
+    }
+        select {
+      background: #1E2139;
+      border: none;
+    }
+
+    option {
+      color: #FFF;
+    }
+
+  }
+
+  .modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .modal-content::-webkit-scrollbar-track {
+    background: #141625;
+  }
+
+  .modal-content::-webkit-scrollbar-thumb {
+    background-color: #252945;
+    border-radius: 4px;
+  }
+  .btn-group {
+    border-radius: 0 20px 20px 0 !important;
+  }
+  
+
+
+
+
+}
+header {
+  .theme {
+    cursor: pointer;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

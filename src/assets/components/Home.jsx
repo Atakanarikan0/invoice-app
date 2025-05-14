@@ -6,7 +6,7 @@ import CreateInvoice from "./CreateInvoice.jsx";
 
 
 export default function Home() {
-  const { data, setData, setCurrentInvoice, currentInvoice, screenSize } = useContext(DataContext);
+  const { data, setData, setCurrentInvoice, currentInvoice, screenSize, isEdit, setIsEdit } = useContext(DataContext);
   const [filterValue, setFilterValue] = useState('All');
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   useEffect(() => {
@@ -40,9 +40,15 @@ export default function Home() {
   }
   const filteredData = data.filter(x => filterValue === "All" || x.status === filterValue);
 
+  if(isEdit) {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
+
   return (
     <div className="home-container">
-      <Header />
+      <Header isEdit={isEdit} setIsEdit={setIsEdit} />
 
       <div className="input-group">
         <div>
