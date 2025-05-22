@@ -1,4 +1,4 @@
-import "../style/Home.css"
+import "../style/home.css"
 import Header from "./Header.jsx"
 import { DataContext } from "../../App.jsx"
 import { useContext, useEffect, useState } from "react"

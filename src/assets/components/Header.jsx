@@ -1,4 +1,4 @@
-import "../style/Home.css"
+import "../style/home.css"
 import { DataContext } from "../../App.jsx"
 import { useContext } from "react";
 
