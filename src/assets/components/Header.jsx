@@ -14,13 +14,13 @@ export default function Header() {
   return(
     <header>
       <div className="logo">
-        <img src="/public/img/logo.svg" alt="Logo" />
+        <img src="/img/logo.svg" alt="Logo" />
       </div>
       <label className="theme" >
         <input type="checkbox" onChange={handleTheme} />
-        {isEdit ? <img src="/public/img/sun-icon.svg" alt="Moon Icon" />  : <img src="/public/img/moon-icon.svg" alt="Moon Icon" />  }
+        {isEdit ? <img src="/img/sun-icon.svg" alt="Moon Icon" />  : <img src="/img/moon-icon.svg" alt="Moon Icon" />  }
       </label>
-      <img src="/public/img/user.png" alt="Avatar" />
+      <img src="/img/user.png" alt="Avatar" />
     </header>
 
   )

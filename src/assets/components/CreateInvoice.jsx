@@ -217,7 +217,7 @@ export default function CreateInvoice() {
                       />
                     </div>
                     <button type="button" onClick={() => handleDeleteItem(index)}>
-                      <img src="/public/img/trash-icon.svg" alt="Delete" />
+                      <img src="/img/trash-icon.svg" alt="Delete" />
                     </button>
                   </div>
                 </div>
@@ -274,7 +274,7 @@ export default function CreateInvoice() {
                     </td>
                     <td>
                       <button type="button" onClick={() => handleDeleteItem(index)}>
-                        <img src="/public/img/trash-icon.svg" alt="Delete" />
+                        <img src="/img/trash-icon.svg" alt="Delete" />
                       </button>
                     </td>
                   </tr>

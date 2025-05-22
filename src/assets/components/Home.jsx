@@ -80,7 +80,7 @@ export default function Home() {
             setShowCreateDialog(true)
           }
         }}>
-          <img src="/public/img/plus-icon.svg" alt="" />
+          <img src="/img/plus-icon.svg" alt="" />
           <h6>{screenSize ? "New" : "New Invoice"}</h6>
         </button>
       </div>
@@ -93,7 +93,7 @@ export default function Home() {
       )}
       {filteredData.length === 0 ?
         <div className="empty-invoice">
-          <img src="/public/img/empty-invoice.png" alt="Empty Invoice" />
+          <img src="/img/empty-invoice.png" alt="Empty Invoice" />
           <h5>There is nothing here</h5>
           <p>Create an invoice by clicking the <br /> New button and get started</p>
         </div>
@@ -121,7 +121,7 @@ export default function Home() {
                       <span>{x.clientName}</span>
                       <h5>£{grandTotal(x.items.map(y => y.itemTotal))}</h5>
                       <li className={x.status === "Pending" ? "pending" : x.status === "Paid" ? "paid" : "draft"}>{x.status}</li>
-                      <img src="/public/img/right-icon.svg" alt="Right Icon" />
+                      <img src="/img/right-icon.svg" alt="Right Icon" />
                     </>)
                 }
               </div>
